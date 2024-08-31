@@ -2,10 +2,10 @@ export interface GamesResponse {
   count: number;
   next: string;
   previous: string;
-  results: Games[];
+  results: Game[];
 }
 
-export interface Games {
+export interface Game {
   id: number;
   slug: string;
   name: string;
