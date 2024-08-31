@@ -7,36 +7,15 @@ export interface GamesResponse {
 
 export interface Game {
   id: number;
-  slug: string;
   name: string;
-  released: Date;
-  tba: boolean;
   background_image: string;
-  rating: number;
-  rating_top: number;
-  ratings: object;
-  ratings_count: number;
-  reviews_text_count: string;
-  added: number;
-  added_by_status: object;
-  metacritic: number;
-  playtime: number;
-  suggestions_count: number;
-  updated: Date;
-  esrb_rating: EsrbRating;
-  platforms: Platform[];
-}
-
-export interface EsrbRating {
-  id: number;
-  slug: string;
-  name: string;
+  parent_platforms: { platform: Platform }[];
 }
 
 export interface Platform {
-  platform: EsrbRating;
-  released_at: string;
-  requirements: Requirements;
+  id: number;
+  name: string;
+  slug: string;
 }
 
 export interface Requirements {
