@@ -1,15 +1,8 @@
-export interface GamesResponse {
+export interface DataResponse<T> {
   count: number;
   next: string;
   previous: string;
-  results: Game[];
-}
-
-export interface GenresResponse {
-  count: number;
-  next: string;
-  previous: string;
-  results: Genre[];
+  results: T[];
 }
 
 export interface Game {
