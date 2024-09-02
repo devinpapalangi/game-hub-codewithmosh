@@ -6,11 +6,8 @@ import GameCardContainer from "./GameCardContainer";
 import useGames from "../hooks/useGames";
 
 const GameGrid = () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const genre = searchParams.get("genre");
-  const { data, error, isLoading } = useGames(genre);
+  const { data, error, isLoading } = useGames();
   const skeletons = Array.from({ length: 6 }, (_, i) => i);
-
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -26,12 +23,12 @@ const GameGrid = () => {
       >
         {isLoading &&
           skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
+            <GameCardContainer>
               <GameCardSkeleton key={skeleton} />
             </GameCardContainer>
           ))}
         {data.map((data) => (
-          <GameCardContainer key={data.id}>
+          <GameCardContainer>
             <GameCard key={data.id} game={data} />
           </GameCardContainer>
         ))}
