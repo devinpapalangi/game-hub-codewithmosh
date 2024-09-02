@@ -7,7 +7,7 @@ import useGames from "../hooks/useGames";
 
 const GameGrid = () => {
   const { data, error, isLoading } = useGames();
-  const skeletons = [1, 2, 3, 4, 5, 6];
+  const skeletons = Array.from({ length: 6 }, (_, i) => i);
   return (
     <>
       {error && <Text>{error}</Text>}
