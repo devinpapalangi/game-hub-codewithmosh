@@ -1,12 +1,13 @@
-import { ListItem, HStack, Image, Text } from "@chakra-ui/react";
+import { ListItem, HStack, Image, Button } from "@chakra-ui/react";
 import React from "react";
 import { getCroppedImageUrl } from "../services/image-url";
 import { Genre } from "../types";
 
 interface Props {
   genre: Genre;
+  onSelectedGenre: (id: Genre) => void;
 }
-const GenreListItem: React.FC<Props> = ({ genre }) => {
+const GenreListItem: React.FC<Props> = ({ genre, onSelectedGenre }) => {
   return (
     <ListItem paddingY={"5px"}>
       <HStack>
@@ -15,7 +16,14 @@ const GenreListItem: React.FC<Props> = ({ genre }) => {
           borderRadius={8}
           src={getCroppedImageUrl(genre.image_background)}
         />
-        <Text fontSize={"lg"}>{genre.name}</Text>
+        <Button
+          onClick={() => onSelectedGenre(genre)}
+          fontSize={"lg"}
+          variant={"link"}
+          noOfLines={1}
+        >
+          {genre.name}
+        </Button>
       </HStack>
     </ListItem>
   );
