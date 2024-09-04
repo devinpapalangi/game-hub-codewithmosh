@@ -6,8 +6,9 @@ import { Genre } from "../types";
 interface Props {
   genre: Genre;
   onSelectGenre: (genre: Genre) => void;
+  selected: boolean;
 }
-const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre }) => {
+const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre, selected }) => {
   return (
     <ListItem paddingY={"5px"}>
       <HStack>
@@ -17,9 +18,10 @@ const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre }) => {
           src={getCroppedImageUrl(genre.image_background)}
         />
         <Button
-          variant={"link"}
+          variant={selected ? "solid" : "link"}
           fontSize={"lg"}
           onClick={() => onSelectGenre(genre)}
+          noOfLines={1}
         >
           {genre.name}
         </Button>

@@ -12,7 +12,7 @@ interface Props {
 
 const GameGrid: React.FC<Props> = ({ selectedGenre }) => {
   const { data, error, isLoading } = useGames(selectedGenre);
-  const skeletons = Array.from({ length: 6 }, (_, i) => i);
+  const skeletons = Array.from({ length: 12 }, (_, i) => i);
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -26,17 +26,17 @@ const GameGrid: React.FC<Props> = ({ selectedGenre }) => {
         spacing={3}
         padding={"10px"}
       >
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
-              <GameCardSkeleton key={skeleton} />
-            </GameCardContainer>
-          ))}
-        {data.map((data) => (
-          <GameCardContainer key={data.id}>
-            <GameCard key={data.id} game={data} />
-          </GameCardContainer>
-        ))}
+        {isLoading
+          ? skeletons.map((skeleton) => (
+              <GameCardContainer key={skeleton}>
+                <GameCardSkeleton key={skeleton} />
+              </GameCardContainer>
+            ))
+          : data.map((data) => (
+              <GameCardContainer key={data.id}>
+                <GameCard key={data.id} game={data} />
+              </GameCardContainer>
+            ))}
       </SimpleGrid>
     </>
   );
