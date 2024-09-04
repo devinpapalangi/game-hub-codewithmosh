@@ -18,7 +18,8 @@ const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre, selected }) => {
           src={getCroppedImageUrl(genre.image_background)}
         />
         <Button
-          variant={selected ? "solid" : "link"}
+          fontWeight={selected ? "bold" : "normal"}
+          variant={"link"}
           fontSize={"lg"}
           onClick={() => onSelectGenre(genre)}
           noOfLines={1}
