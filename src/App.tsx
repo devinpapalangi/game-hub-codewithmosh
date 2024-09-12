@@ -1,12 +1,14 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import { useEffect, useState } from "react";
-import { Genre } from "./types";
+import { GameQuery, Genre, Platform } from "./types";
+import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
 
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [query, setQuery] = useState<GameQuery>({} as GameQuery);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -14,14 +16,28 @@ function App() {
     const genreParams = urlParams.get("genre");
     if (genreParams) {
       const genre = JSON.parse(genreParams);
-      setSelectedGenre(genre);
+      setQuery((prev) => ({ ...prev, genre }));
     }
-  }, [selectedGenre]);
+
+    const platformParams = urlParams.get("platform");
+    if (platformParams) {
+      const platform = JSON.parse(platformParams);
+      setQuery({ ...query, platform });
+    }
+  }, [query]);
 
   const onSelectGenre = (genre: Genre) => {
-    setSelectedGenre(genre);
+    setQuery({ ...query, genre });
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("genre", JSON.stringify(genre));
+    window.history.pushState({}, "", `?${urlParams.toString()}`);
+  };
+
+  const onSelectedPlatform = (platform: Platform) => {
+    setQuery({ ...query, platform });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("platform", JSON.stringify(platform));
     window.history.pushState({}, "", `?${urlParams.toString()}`);
   };
   return (
@@ -41,13 +57,21 @@ function App() {
       <Show above="lg">
         <GridItem area={"aside"} paddingX={5}>
           <GenreList
-            selectedGenre={selectedGenre}
+            selectedGenre={query.genre}
             onSelectGenre={onSelectGenre}
           />
         </GridItem>
       </Show>
       <GridItem area={"main"}>
-        <GameGrid selectedGenre={selectedGenre} />
+        <HStack spacing={5} paddingLeft={2} marginBottom={5}>
+          <PlatformSelector
+            onSelectedPlatform={onSelectedPlatform}
+            selectedPlatform={query.platform}
+          />
+          <SortSelector />
+        </HStack>
+
+        <GameGrid query={query} />
       </GridItem>
     </Grid>
   );

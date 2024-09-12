@@ -13,10 +13,20 @@ export interface Game {
   metacritic: number;
 }
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+}
+
 export interface Platform {
   id: number;
   name: string;
   slug: string;
+  games_count: number;
+  image_background: string;
+  image: string;
+  year_start: number;
+  year_end: number;
 }
 
 export interface Requirements {
