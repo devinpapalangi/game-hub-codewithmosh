@@ -9,9 +9,10 @@ const useGames = (query: GameQuery) =>
         genre: query.genre?.id,
         platform: query.platform?.id,
         ordering: query.ordering,
+        search: query.searchText,
       },
     },
-    [query.genre?.id, query.platform?.id, query.ordering]
+    [query.genre?.id, query.platform?.id, query.ordering, query.searchText]
   );
 
 export default useGames;

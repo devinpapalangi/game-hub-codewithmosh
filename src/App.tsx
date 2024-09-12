@@ -30,6 +30,12 @@ function App() {
       const ordering = JSON.parse(orderingParams);
       setQuery({ ...query, ordering });
     }
+
+    const searchTextParams = urlParams.get("searchText");
+    if (searchTextParams) {
+      const searchText = JSON.parse(searchTextParams);
+      setQuery({ ...query, searchText });
+    }
   }, [query]);
 
   const onSelectGenre = (genre: Genre) => {
@@ -53,6 +59,13 @@ function App() {
     urlParams.set("ordering", JSON.stringify(ordering));
     window.history.pushState({}, "", `?${urlParams.toString()}`);
   };
+
+  const onSearch = (searchText: string) => {
+    setQuery({ ...query, searchText });
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchText", JSON.stringify(searchText));
+    window.history.pushState({}, "", `?${urlParams.toString()}`);
+  };
   return (
     <Grid
       templateAreas={{
@@ -65,7 +78,7 @@ function App() {
       }}
     >
       <GridItem area={"nav"}>
-        <Navbar />
+        <Navbar onSearch={onSearch} />
       </GridItem>
       <Show above="lg">
         <GridItem area={"aside"} paddingX={5}>
