@@ -24,6 +24,12 @@ function App() {
       const platform = JSON.parse(platformParams);
       setQuery({ ...query, platform });
     }
+
+    const orderingParams = urlParams.get("ordering");
+    if (orderingParams) {
+      const ordering = JSON.parse(orderingParams);
+      setQuery({ ...query, ordering });
+    }
   }, [query]);
 
   const onSelectGenre = (genre: Genre) => {
@@ -38,6 +44,13 @@ function App() {
 
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("platform", JSON.stringify(platform));
+    window.history.pushState({}, "", `?${urlParams.toString()}`);
+  };
+
+  const onSelectedOrdering = (ordering: string) => {
+    setQuery({ ...query, ordering });
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("ordering", JSON.stringify(ordering));
     window.history.pushState({}, "", `?${urlParams.toString()}`);
   };
   return (
@@ -68,7 +81,10 @@ function App() {
             onSelectedPlatform={onSelectedPlatform}
             selectedPlatform={query.platform}
           />
-          <SortSelector />
+          <SortSelector
+            onSelectSortOrder={onSelectedOrdering}
+            selectedSortOrder={query.ordering}
+          />
         </HStack>
 
         <GameGrid query={query} />
