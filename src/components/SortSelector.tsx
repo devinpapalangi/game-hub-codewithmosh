@@ -12,11 +12,11 @@ const SortSelector: React.FC<Props> = ({
   const sortSelector = [
     {
       text: "Relevance",
-      value: "name",
+      value: "",
     },
     {
       text: "Date Added ",
-      value: "- added",
+      value: "-added",
     },
     {
       text: "Name",
