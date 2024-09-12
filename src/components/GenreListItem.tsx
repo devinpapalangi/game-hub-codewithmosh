@@ -14,6 +14,7 @@ const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre, selected }) => {
       <HStack>
         <Image
           boxSize="32px"
+          objectFit={"cover"}
           borderRadius={8}
           src={getCroppedImageUrl(genre.image_background)}
         />
@@ -22,7 +23,8 @@ const GenreListItem: React.FC<Props> = ({ genre, onSelectGenre, selected }) => {
           variant={"link"}
           fontSize={"lg"}
           onClick={() => onSelectGenre(genre)}
-          noOfLines={1}
+          whiteSpace={"normal"}
+          textAlign={"left"}
         >
           {genre.name}
         </Button>
