@@ -1,6 +1,6 @@
 export interface DataResponse<T> {
   count: number;
-  next: string;
+  next: string | null;
   previous: string;
   results: T[];
 }

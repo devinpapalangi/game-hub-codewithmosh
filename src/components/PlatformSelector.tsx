@@ -20,7 +20,7 @@ const PlatformSelector: React.FC<Props> = ({
       </MenuButton>
       <MenuList>
         {isLoading && <MenuItem>Loading...</MenuItem>}
-        {data.map((data) => (
+        {data?.results.map((data) => (
           <MenuItem onClick={() => onSelectedPlatform(data)} key={data.id}>
             {data.name}
           </MenuItem>

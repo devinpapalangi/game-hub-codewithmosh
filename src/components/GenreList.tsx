@@ -19,10 +19,10 @@ const GenreList: React.FC<Props> = ({ onSelectGenre, selectedGenre }) => {
         Genres
       </Heading>
       <List>
-        {error && <li>{error}</li>}
+        {error && <li>{error.message}</li>}
         {isLoading &&
           skeletons.map((index) => <GenreListSkeleton key={index} />)}
-        {data.map((data) => (
+        {data?.results.map((data) => (
           <GenreListItem
             key={data.id}
             genre={data}
