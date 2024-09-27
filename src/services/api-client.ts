@@ -20,4 +20,10 @@ export default class APIClient<T> {
       .get<DataResponse<T>>(this.endpoint, config)
       .then((res) => res.data);
   };
+
+  get = (config: AxiosRequestConfig, id: number) => {
+    return axiosInstance
+      .get<DataResponse<T>>(`${this.endpoint}/${id}`, config)
+      .then((res) => res.data);
+  };
 }

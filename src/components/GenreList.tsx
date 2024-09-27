@@ -7,7 +7,7 @@ import { Genre } from "../types";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenre?: number;
 }
 
 const GenreList: React.FC<Props> = ({ onSelectGenre, selectedGenre }) => {
@@ -26,7 +26,7 @@ const GenreList: React.FC<Props> = ({ onSelectGenre, selectedGenre }) => {
           <GenreListItem
             key={data.id}
             genre={data}
-            selected={selectedGenre?.id === data.id}
+            selected={selectedGenre === data.id}
             onSelectGenre={onSelectGenre}
           />
         ))}

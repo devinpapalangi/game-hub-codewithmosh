@@ -2,7 +2,7 @@ import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GameQuery, Genre, Platform } from "./types";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
@@ -11,61 +11,20 @@ import GameHeading from "./components/GameHeading";
 function App() {
   const [query, setQuery] = useState<GameQuery>({} as GameQuery);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const genreParams = urlParams.get("genre");
-    if (genreParams) {
-      const genre = JSON.parse(genreParams);
-      setQuery((prev) => ({ ...prev, genre }));
-    }
-
-    const platformParams = urlParams.get("platform");
-    if (platformParams) {
-      const platform = JSON.parse(platformParams);
-      setQuery({ ...query, platform });
-    }
-
-    const orderingParams = urlParams.get("ordering");
-    if (orderingParams) {
-      const ordering = JSON.parse(orderingParams);
-      setQuery({ ...query, ordering });
-    }
-
-    const searchTextParams = urlParams.get("searchText");
-    if (searchTextParams) {
-      const searchText = JSON.parse(searchTextParams);
-      setQuery({ ...query, searchText });
-    }
-  }, [query]);
-
   const onSelectGenre = (genre: Genre) => {
-    setQuery({ ...query, genre });
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("genre", JSON.stringify(genre));
-    window.history.pushState({}, "", `?${urlParams.toString()}`);
+    setQuery({ ...query, genreId: genre.id });
   };
 
   const onSelectedPlatform = (platform: Platform) => {
-    setQuery({ ...query, platform });
-
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("platform", JSON.stringify(platform));
-    window.history.pushState({}, "", `?${urlParams.toString()}`);
+    setQuery({ ...query, platformId: platform.id });
   };
 
   const onSelectedOrdering = (ordering: string) => {
     setQuery({ ...query, ordering });
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("ordering", JSON.stringify(ordering));
-    window.history.pushState({}, "", `?${urlParams.toString()}`);
   };
 
   const onSearch = (searchText: string) => {
     setQuery({ ...query, searchText });
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("searchText", JSON.stringify(searchText));
-    window.history.pushState({}, "", `?${urlParams.toString()}`);
   };
   return (
     <Grid
@@ -84,7 +43,7 @@ function App() {
       <Show above="lg">
         <GridItem area={"aside"} paddingX={5}>
           <GenreList
-            selectedGenre={query.genre}
+            selectedGenre={query.genreId}
             onSelectGenre={onSelectGenre}
           />
         </GridItem>
@@ -97,7 +56,7 @@ function App() {
             <Box marginRight={5}>
               <PlatformSelector
                 onSelectedPlatform={onSelectedPlatform}
-                selectedPlatform={query.platform}
+                selectedPlatform={query.platformId}
               />
             </Box>
             <SortSelector
