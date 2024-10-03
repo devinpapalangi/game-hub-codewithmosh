@@ -2,30 +2,11 @@ import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
-import { useState } from "react";
-import { GameQuery, Genre, Platform } from "./types";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
 
 function App() {
-  const [query, setQuery] = useState<GameQuery>({} as GameQuery);
-
-  const onSelectGenre = (genre: Genre) => {
-    setQuery({ ...query, genreId: genre.id });
-  };
-
-  const onSelectedPlatform = (platform: Platform) => {
-    setQuery({ ...query, platformId: platform.id });
-  };
-
-  const onSelectedOrdering = (ordering: string) => {
-    setQuery({ ...query, ordering });
-  };
-
-  const onSearch = (searchText: string) => {
-    setQuery({ ...query, searchText });
-  };
   return (
     <Grid
       templateAreas={{
@@ -38,34 +19,25 @@ function App() {
       }}
     >
       <GridItem area={"nav"}>
-        <Navbar onSearch={onSearch} />
+        <Navbar />
       </GridItem>
       <Show above="lg">
         <GridItem area={"aside"} paddingX={5}>
-          <GenreList
-            selectedGenre={query.genreId}
-            onSelectGenre={onSelectGenre}
-          />
+          <GenreList />
         </GridItem>
       </Show>
 
       <GridItem area={"main"}>
         <Box paddingLeft={2}>
-          <GameHeading query={query} />
+          <GameHeading />
           <Flex marginBottom={5}>
             <Box marginRight={5}>
-              <PlatformSelector
-                onSelectedPlatform={onSelectedPlatform}
-                selectedPlatform={query.platformId}
-              />
+              <PlatformSelector />
             </Box>
-            <SortSelector
-              onSelectSortOrder={onSelectedOrdering}
-              selectedSortOrder={query.ordering}
-            />
+            <SortSelector />
           </Flex>
         </Box>
-        <GameGrid query={query} />
+        <GameGrid />
       </GridItem>
     </Grid>
   );

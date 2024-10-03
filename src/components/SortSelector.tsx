@@ -1,43 +1,12 @@
 import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
+import { SORT_SELECTOR_VALUES } from "../hooks/contants";
+import useGameQuery from "../hooks/useGameQuery";
 
-interface Props {
-  onSelectSortOrder: (sortOrder: string) => void;
-  selectedSortOrder: string;
-}
-const SortSelector: React.FC<Props> = ({
-  onSelectSortOrder,
-  selectedSortOrder,
-}) => {
-  const sortSelector = [
-    {
-      text: "Relevance",
-      value: "",
-    },
-    {
-      text: "Date Added ",
-      value: "-added",
-    },
-    {
-      text: "Name",
-      value: "name",
-    },
-    {
-      text: "Release Date",
-      value: "-released ",
-    },
-    {
-      text: "Popularity ",
-      value: "-metacritic ",
-    },
-    {
-      text: "Average Rating ",
-      value: "-rating ",
-    },
-  ];
-
+const SortSelector = () => {
+  const { gameQuery, setGameQuery } = useGameQuery();
   const getTextLabel = (value: string) => {
-    const data = sortSelector.find((data) => data.value === value);
+    const data = SORT_SELECTOR_VALUES.find((data) => data.value === value);
     if (data) {
       return data.text;
     }
@@ -45,12 +14,12 @@ const SortSelector: React.FC<Props> = ({
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order By: {getTextLabel(selectedSortOrder) || "Relevance"}
+        Order By: {getTextLabel(gameQuery.ordering) || "Relevance"}
       </MenuButton>
       <MenuList>
-        {sortSelector.map((data) => (
+        {SORT_SELECTOR_VALUES.map((data) => (
           <MenuItem
-            onClick={() => onSelectSortOrder(data.value)}
+            onClick={() => setGameQuery({ ...gameQuery, ordering: data.value })}
             key={data.value}
             value={data.value}
           >
