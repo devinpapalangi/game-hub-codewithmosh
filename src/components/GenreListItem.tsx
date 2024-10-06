@@ -1,5 +1,4 @@
 import { ListItem, HStack, Image, Button } from "@chakra-ui/react";
-import React from "react";
 import { getCroppedImageUrl } from "../services/image-url";
 import { Genre } from "../types";
 import useGameQuery from "../hooks/useGameQuery";
