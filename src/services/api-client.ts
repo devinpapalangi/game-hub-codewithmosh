@@ -15,15 +15,25 @@ export default class APIClient<T> {
     this.endpoint = endpoint;
   }
 
-  getAll = (config: AxiosRequestConfig) => {
+  getAll = (config: AxiosRequestConfig = {}) => {
     return axiosInstance
       .get<DataResponse<T>>(this.endpoint, config)
       .then((res) => res.data);
   };
 
-  get = (config: AxiosRequestConfig, id: number) => {
+  get = (slug: string, config: AxiosRequestConfig = {}) => {
     return axiosInstance
-      .get<DataResponse<T>>(`${this.endpoint}/${id}`, config)
+      .get<T>(`${this.endpoint}/${slug}`, config)
+      .then((res) => res.data);
+  };
+
+  getExtensive = (
+    slug: string,
+    extensivePath: string,
+    config: AxiosRequestConfig = {}
+  ) => {
+    return axiosInstance
+      .get<T>(`${this.endpoint}/${slug}/${extensivePath}`, config)
       .then((res) => res.data);
   };
 }
