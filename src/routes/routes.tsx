@@ -1,29 +1,27 @@
 import { createBrowserRouter } from "react-router-dom";
-import NavSideLayout from "../layouts/nav-side-layout";
 import HomePage from "../pages/home";
-import { NavOnlyLayout } from "../layouts/nav-only-layout";
 import UserDetail from "../pages/user-detail";
 import ErrorPage from "../pages/error-page";
+import GameDetail from "../pages/game-detail";
+import Layout from "../layouts/layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <NavSideLayout />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <HomePage />,
       },
-    ],
-  },
-  {
-    path: "/users",
-    element: <NavOnlyLayout />,
-    children: [
       {
-        path: ":id",
+        path: "/users/:id",
         element: <UserDetail />,
+      },
+      {
+        path: "/games/:slug",
+        element: <GameDetail />,
       },
     ],
   },

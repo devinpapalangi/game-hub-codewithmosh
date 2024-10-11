@@ -1,6 +1,10 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
+import errorAnimation from "../assets/Animation - 1728239813082.json";
+import Lottie from "lottie-react";
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
+  const error = useRouteError();
   return (
     <Box
       sx={{
@@ -10,7 +14,21 @@ const ErrorPage = () => {
         height: "100vh",
       }}
     >
-      <Heading>Something went wrong</Heading>
+      <Stack>
+        {isRouteErrorResponse(error) ? (
+          <Heading>{error.data.message}</Heading>
+        ) : (
+          <Heading>Oops! Something went wrong</Heading>
+        )}
+
+        <Box>
+          <Lottie
+            style={{ height: "400px", width: "400px" }}
+            loop={true}
+            animationData={errorAnimation}
+          />
+        </Box>
+      </Stack>
     </Box>
   );
 };
