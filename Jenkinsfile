@@ -2,7 +2,7 @@ pipeline{
     agent any
     tools {nodejs "node"}
     environment{
-        imageName = "game-hub"
+        imageName = "devinanugrahp/game-hub" 
         registryCredential =  'devinanugrahp'
     }
 
