@@ -29,5 +29,13 @@ pipeline{
                 }
             }
         }
+
+        stage("Running Container"){
+            steps{
+                script{
+                    docker.image(imageName).run("-d -p 5173:80")
+                }
+            }
+        }
     }
 }
