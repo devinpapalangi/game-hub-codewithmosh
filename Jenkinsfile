@@ -30,6 +30,19 @@ pipeline{
             }
         }
 
+        stage("Cleanup Existing Container") {
+            steps {
+                script {
+                    // Check if the container exists and stop/remove it
+                    def existingContainer = sh(script: "docker ps -aq -f name=${containerName}", returnStdout: true).trim()
+                    if (existingContainer) {
+                        sh "docker stop ${existingContainer}"
+                        sh "docker rm ${existingContainer}"
+                    }
+                }
+            }
+        }
+
         stage("Running Container"){
             steps{
                 script{
