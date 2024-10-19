@@ -29,22 +29,5 @@ pipeline{
                 }
             }
         }
-
-        
-
-
-        stage("Cleaning up"){
-            steps{
-                sh 'docker rmi ${imageName}'
-            }
-        }
-
-        stage("Running Container"){
-            steps{
-                script{
-                    docker.image(imageName).run("-d -p 5173:80")
-                }
-            }
-        }
     }
 }
