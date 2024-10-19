@@ -30,6 +30,13 @@ pipeline{
             }
         }
 
+        stage("Temporary Stage to print all containers"){
+            steps{
+                sh 'docker container ps -a'
+            }
+        }
+
+
         stage("Cleaning up"){
             steps{
                 sh 'docker rmi $imageName:$BUILD_NUMBER'
