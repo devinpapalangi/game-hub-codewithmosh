@@ -38,5 +38,13 @@ pipeline{
                 }
             }
         }
+
+        stage("Run container"){
+            steps{
+                script{
+                    sh 'docker run -d -p 5173:80 --name game-hub ${imageName}'
+                }
+            }
+        }
     }
 }
