@@ -29,5 +29,14 @@ pipeline{
                 }
             }
         }
+
+        stage("Cleanup previous container"){
+            steps{
+                script{
+                    sh 'docker stop game-hub || true'
+                    sh 'docker rm game-hub || true'
+                }
+            }
+        }
     }
 }
